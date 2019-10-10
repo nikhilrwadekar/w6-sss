@@ -21,15 +21,12 @@ const bakePie = (ingredients) => {
 
     // A promise represents the eventual completion of an asynchronous function and the value returned by that function.
     return new Promise((resolve, reject) => {
-
-        setTimeout(() => {
-            if (ingredients.length != 0)
+        if (ingredients.length != 0)
+            setTimeout(() => {
                 resolve(`Baked pie with ${ingredients}!`);
-            else
-                reject(`Cannot bake pie with 0 ingredients`)
-
-
-        }, 3000)
+            }, 3000)
+        else
+            reject(`Cannot bake pie with 0 ingredients`)
     });
 }
 
