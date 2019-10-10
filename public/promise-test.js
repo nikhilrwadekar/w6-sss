@@ -40,9 +40,25 @@
 
 let type = "apple";
 
+const prepareIngredients = (type) => {
+
+    // A promise represents the eventual completion of an asynchronous function and the value returned by that function.
+    return new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            let ingredients = [type, 'flour', 'sugar', 'eggs', 'baking powder'];
+            console.log(`Ingredients prepared! ${ingredients}`);
+
+            // Resolve by passing the ingredients down the chain..
+            resolve(ingredients);
+        })
+    });
+}
+
 prepareIngredients(type) //This promise "resolves" with ingredients
-    .then(ingredients => bakePie(ingredients)) //Promise resolves with pie
-    .then(pie => { console.log(`The ${pie} is delicious!`) })
-    .catch((error) => {
-        console.log(error);
-    })
+    .then(ingredients => { console.log(`Now we have ingredients: ${ingredients}`) })
+// .then(ingredients => bakePie(ingredients)) //Promise resolves with pie
+// .then(pie => { console.log(`The ${pie} is delicious!`) })
+.catch((error) => {
+    console.log(error);
+})
