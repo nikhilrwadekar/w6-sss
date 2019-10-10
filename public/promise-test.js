@@ -1,43 +1,5 @@
 // // Create an application to bake a (virtual) pie.
 
-// // Type for the pie.
-// let type = 'apple';
-// let ingredients = [];
-
-// // Prepare Ingredients Function..
-// const prepareIngredients = () => {
-//     // Preparing ingredients takes time... after 2 seconds 
-
-//     // Set timeout for 2 seconds.. but it lets other code run the async way
-//     setTimeout(() => {
-//         ingredients = [type, 'flour', 'sugar', 'eggs', 'baking powder'];
-
-//         console.log(`ingredients prepare for the ${type} pie:
-//         ${ingredients}`)
-//     }, 2000);
-
-// }
-
-// // Bake Pie Function..
-// const bakePie = () => {
-
-//     if (ingredients.length != 0) {
-
-//         console.log(`Putting the pie in the oven..`);
-//         setTimeout(() => {
-//             console.log(`It's finally ready! Enjoy your ${type} pie!`);
-//         }, 3000);
-//     }
-//     else {
-//         console.log(`Can't bake the pie - no ingredients have been prepared!`);
-//     }
-
-// }
-
-// console.log("Starting the pie..");
-// prepareIngredients();
-// bakePie();
-
 let type = "apple";
 
 const prepareIngredients = (type) => {
@@ -51,14 +13,32 @@ const prepareIngredients = (type) => {
 
             // Resolve by passing the ingredients down the chain..
             resolve(ingredients);
-        })
+        }, 2000)
     });
 }
 
+const bakePie = (ingredients) => {
+
+    // A promise represents the eventual completion of an asynchronous function and the value returned by that function.
+    return new Promise((resolve, reject) => {
+
+        setTimeout(() => {
+            if (ingredients.length != 0)
+                resolve(`Baked pie with ${ingredients}!`);
+            else
+                reject(`Cannot bake pie with 0 ingredients`)
+
+
+        }, 3000)
+    });
+}
+
+
+// Implement bakePie(ingredients). It should create an error and reject when ingredients is empty. If ingredients is not empty, it should resolve with a pie that is basically just a string: For example 'apple pie'
+
 prepareIngredients(type) //This promise "resolves" with ingredients
-    .then(ingredients => { console.log(`Now we have ingredients: ${ingredients}`) })
-// .then(ingredients => bakePie(ingredients)) //Promise resolves with pie
-// .then(pie => { console.log(`The ${pie} is delicious!`) })
-.catch((error) => {
-    console.log(error);
-})
+    .then(ingredients => bakePie(ingredients)) //Promise resolves with pie
+    .then(statusMessage => { console.log(statusMessage) })
+    .catch((error) => {
+        console.log(error);
+    })
